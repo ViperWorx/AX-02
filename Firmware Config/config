@@ -20,7 +20,7 @@ gamma_steps_per_mm                           320             # Steps per mm for 
 
 # Planner module configuration : Look-ahead and acceleration configuration
 planner_queue_size                           32               # DO NOT CHANGE THIS UNLESS YOU KNOW EXACTLY WHAT YOUR ARE DOING
-acceleration                                 1000             # Acceleration in mm/second/second.
+acceleration                                 3600             # Acceleration in mm/second/second.
 junction_deviation                           0.05             # Similar to the old "max_jerk", in millimeters, see : https://github.com/grbl/grbl/blob/master/planner.c#L409
                                                               # and https://github.com/grbl/grbl/wiki/Configuring-Grbl-v0.8 . Lower values mean being more careful, higher values means being faster and have more jerk
 
@@ -33,22 +33,22 @@ alpha_step_pin                               2.1              # Pin for alpha st
 alpha_dir_pin                                0.11             # Pin for alpha stepper direction
 alpha_en_pin                                 0.10             # Pin for alpha enable pin
 alpha_current                                1.0              # X stepper motor current
-alpha_max_rate                               30000.0          # mm/min actuator max speed
-x_axis_max_speed                             30000.0          # mm/min cartesian max speed
+alpha_max_rate                               18000.0          # mm/min actuator max speed
+x_axis_max_speed                             18000.0          # mm/min cartesian max speed
 
 beta_step_pin                                2.2              # Pin for beta stepper step signal
 beta_dir_pin                                 0.20             # Pin for beta stepper direction
 beta_en_pin                                  0.19             # Pin for beta enable
 beta_current                                 1.0              # Y stepper motor current
-beta_max_rate                                30000.0          # mm/min
-y_axis_max_speed                             30000.0          # mm/min
+beta_max_rate                                18000.0          # mm/min
+y_axis_max_speed                             18000.0          # mm/min
 
 gamma_step_pin                               2.3              # Pin for gamma stepper step signal
 gamma_dir_pin                                0.22             # Pin for gamma stepper direction
 gamma_en_pin                                 0.21             # Pin for gamma enable
 gamma_current                                1.0              # Z stepper motor current
-gamma_max_rate                               30000.0          # mm/min
-z_axis_max_speed                             30000.0          # mm/min
+gamma_max_rate                               18000.0          # mm/min
+z_axis_max_speed                             18000.0          # mm/min
 
 # Serial communications configuration ( baud rate default to 9600 if undefined )
 uart0.baud_rate                              115200           # Baud rate for the default hardware serial port
@@ -61,9 +61,9 @@ second_usb_serial_enable                     false            # This enables a s
 ## Extruder module configuration
 extruder.hotend.enable                          true             # Whether to activate the extruder module at all. All configuration is ignored if false
 extruder.hotend.steps_per_mm                    140              # Steps per mm for extruder stepper
-extruder.hotend.default_feed_rate               600              # Default rate ( mm/minute ) for moves where only the extruder moves
-extruder.hotend.acceleration                    500              # Acceleration for the stepper motor mm/sec²
-extruder.hotend.max_speed                       50               # mm/s
+extruder.hotend.default_feed_rate               1200              # Default rate ( mm/minute ) for moves where only the extruder moves
+extruder.hotend.acceleration                    3200              # Acceleration for the stepper motor mm/sec²
+extruder.hotend.max_speed                       80               # mm/s
 
 extruder.hotend.step_pin                        2.0              # Pin for extruder step signal
 extruder.hotend.dir_pin                         0.5              # Pin for extruder dir signal
@@ -115,12 +115,12 @@ temperature_control.hotend.designator        T                #
 #temperature_control.hotend.runaway_range                20    # Max setting is 63°C
 
 #P39.98 I5.00 D79.91
-# temperature_control.hotend.p_factor          39.98            #
-# temperature_control.hotend.i_factor          5.00             #
-# temperature_control.hotend.d_factor          79.91            #
+temperature_control.hotend.p_factor          46.7            #
+temperature_control.hotend.i_factor          3.404             #
+temperature_control.hotend.d_factor          160            #
 
 # For bed
-temperature_control.bed.enable               false            #
+temperature_control.bed.enable               true            #
 temperature_control.bed.thermistor_pin       0.23             #
 temperature_control.bed.heater_pin           2.7              #
 temperature_control.bed.thermistor           EPCOS100K        # http://smoothieware.org/temperaturecontrol#toc5
@@ -141,12 +141,12 @@ switch.fan.output_pin                        1.25             #
 
 # automatically toggle a switch at a specified temperature. Different ones of these may be defined to monitor different temperatures and switch different swithxes
 # useful to turn on a fan or water pump to cool the hotend
-temperatureswitch.hotend.enable                true             #
-temperatureswitch.hotend.designator          T                # first character of the temperature control designator to use as the temperature sensor to monitor
-temperatureswitch.hotend.switch              hotendfan             # select which switch to use, matches the name of the defined switch
-temperatureswitch.hotend.threshold_temp      60.0             # temperature to turn on (if rising) or off the switch
-temperatureswitch.hotend.heatup_poll         15               # poll heatup at 15 sec intervals
-temperatureswitch.hotend.cooldown_poll       60               # poll cooldown at 60 sec intervals
+temperatureswitch.hotendfan.enable                true             #
+temperatureswitch.hotendfan.designator          T                # first character of the temperature control designator to use as the temperature sensor to monitor
+temperatureswitch.hotendfan.switch              hotendfan             # select which switch to use, matches the name of the defined switch
+temperatureswitch.hotendfan.threshold_temp      60.0             # temperature to turn on (if rising) or off the switch
+temperatureswitch.hotendfan.heatup_poll         5               # poll heatup at 15 sec intervals
+temperatureswitch.hotendfan.cooldown_poll       60               # poll cooldown at 60 sec intervals
 
 switch.hotendfan.enable                              true             # enable
 switch.hotendfan.input_on_command                    M42              # gcode to turn on
@@ -177,9 +177,9 @@ gamma_homing_direction                       home_to_max      #
 gamma_min                                    0                #
 gamma_max                                    200              # change to suit your height
 
-alpha_max_travel                             2400              # max travel in mm for alpha/X axis when homing
-beta_max_travel                              2400              # max travel in mm for beta/Y axis when homing
-gamma_max_travel                             2400              # max travel in mm for gamma/Z axis when homing
+alpha_max_travel                             300              # max travel in mm for alpha/X axis when homing
+beta_max_travel                              300              # max travel in mm for beta/Y axis when homing
+gamma_max_travel                             200              # max travel in mm for gamma/Z axis when homing
 
 #probe endstop
 #probe_pin                                   1.29             # optional pin for probe
@@ -251,21 +251,33 @@ panel.lcd                                    mini_viki2        # set type of pan
 panel.spi_channel                            0                 # set spi channel to use P0_18,P0_15 MOSI,SCLK
 panel.spi_cs_pin                             0.16              # set spi chip select
 panel.encoder_a_pin                          3.25!^            # encoder pin
-panel.encoder_b_pin                          3.26!^            # encoder pin
+panel.encoder_b_pin                          3.26^            # encoder pin
 panel.click_button_pin                       2.11!^            # click button
 panel.a0_pin                                 2.6               # st7565 needs an a0
-#panel.contrast                               18                # override contrast setting (default is 18)
-#panel.encoder_resolution                     2                 # override number of clicks to move 1 item (default is 2)
+panel.contrast                               0              # override contrast setting (default is 18)
+panel.encoder_resolution                     1                 # override number of clicks to move 1 item (default is 2)
 panel.menu_offset                            1                 # here controls how sensitive the menu is. some panels will need 1
 
 panel.alpha_jog_feedrate                     6000              # x jogging feedrate in mm/min
 panel.beta_jog_feedrate                      6000              # y jogging feedrate in mm/min
 panel.gamma_jog_feedrate                     200               # z jogging feedrate in mm/min
 
-panel.hotend_temperature                     185               # temp to set hotend when preheat is selected
-panel.bed_temperature                        60                # temp to set bed when preheat is selected
+panel.hotend_temperature                     225               # temp to set hotend when preheat is selected
+panel.bed_temperature                        70                # temp to set bed when preheat is selected
 
 # Azteeg specific settings do not change
-currentcontrol_module_enable                 true            #
+currentcontrol_module_enable                 false            #
 digipot_max_current                          2.0             # max current
 digipot_factor 113.5 # factor for converting current to digipot value
+
+# network settings
+network.enable                               true             # enable the ethernet network services
+network.webserver.enable                     true             # enable the webserver
+#network.telnet.enable                        true             # enable the telnet server
+#network.plan9.enable                         true             # enable the plan9 network filesystem
+network.ip_address                           auto    # the IP address
+##etwork.ip_mask                              255.255.255.0    # the ip mask
+#network.ip_gateway                           192.168.0.1      # the gateway address
+network.hostname							 AX-01			#
+
+
