@@ -1,8 +1,8 @@
 # Robot module configurations : general handling of movement G-codes and slicing into moves
 
 arm_solution                                 linear_delta     # delta selection
-arm_length                                   310.00           # this is the length of an arm from hinge to hinge
-arm_radius                                   203.00           #  !Needs Measuring! ####this is the horiontal distance from hinge to hinge when the effector is centered
+arm_length                                   401.50           # this is the length of an arm from hinge to hinge
+arm_radius                                   205.00           # this is the horiontal distance from hinge to hinge when the effector is centered
 
 default_feed_rate                            4000             # Default rate ( mm/minute ) for G1/G2/G3 moves
 default_seek_rate                            4000             # Default rate ( mm/minute ) for G0 moves
@@ -21,7 +21,7 @@ gamma_steps_per_mm                           320             # Steps per mm for 
 # Planner module configuration : Look-ahead and acceleration configuration
 planner_queue_size                           32               # DO NOT CHANGE THIS UNLESS YOU KNOW EXACTLY WHAT YOUR ARE DOING
 acceleration                                 3600             # Acceleration in mm/second/second.
-junction_deviation                           0.05             # Similar to the old "max_jerk", in millimeters, see : https://github.com/grbl/grbl/blob/master/planner.c#L409
+junction_deviation                           0.05             # Similar to the old "max_jerk", in millimeters, see : https://github.com/grbl/grbl/blob/master/planner.c#L409
                                                               # and https://github.com/grbl/grbl/wiki/Configuring-Grbl-v0.8 . Lower values mean being more careful, higher values means being faster and have more jerk
 
 # Stepper module configuration
@@ -53,20 +53,20 @@ z_axis_max_speed                             18000.0          # mm/min
 # Serial communications configuration ( baud rate default to 9600 if undefined )
 uart0.baud_rate                              115200           # Baud rate for the default hardware serial port
 second_usb_serial_enable                     false            # This enables a second usb serial port (to have both pronterface and a terminal connected)
-#msd_disable                                 false            # disable the MSD (USB SDCARD) when set to true
+msd_disable                                  true            # disable the MSD (USB SDCARD) when set to true
 #leds_disable                                true             # disable using leds after config loaded
 #dfu_enable                                  false            # for linux developers, set to true to enable DFU
 #watchdog_timeout                            10               # watchdog timeout in seconds, default is 10, set to 0 to disable the watchdog
 
 ## Extruder module configuration
 extruder.hotend.enable                          true             # Whether to activate the extruder module at all. All configuration is ignored if false
-extruder.hotend.steps_per_mm                    140              # Steps per mm for extruder stepper
-extruder.hotend.default_feed_rate               1200              # Default rate ( mm/minute ) for moves where only the extruder moves
-extruder.hotend.acceleration                    3200              # Acceleration for the stepper motor mm/sec²
-extruder.hotend.max_speed                       80               # mm/s
+extruder.hotend.steps_per_mm                    508.3            # Steps per mm for extruder stepper
+extruder.hotend.default_feed_rate               4800             # Default rate ( mm/minute ) for moves where only the extruder moves
+extruder.hotend.acceleration                    3600             # Acceleration for the stepper motor mm/sec²
+extruder.hotend.max_speed                       50               # mm/s
 
 extruder.hotend.step_pin                        2.0              # Pin for extruder step signal
-extruder.hotend.dir_pin                         0.5              # Pin for extruder dir signal
+extruder.hotend.dir_pin                         0.5!              # Pin for extruder dir signal
 extruder.hotend.en_pin                          0.4              # Pin for extruder enable signal
 
 # extruder offset
@@ -106,18 +106,18 @@ temperature_control.hotend.thermistor        Semitec        # see http://smoothi
 temperature_control.hotend.set_m_code        104              #
 temperature_control.hotend.set_and_wait_m_code 109            #
 temperature_control.hotend.designator        T                #
-#temperature_control.hotend.max_temp         300              # Set maximum temperature - Will prevent heating above 300 by default
-#temperature_control.hotend.min_temp         0                # Set minimum temperature - Will prevent heating below 0 by default
+temperature_control.hotend.max_temp         300              # Set maximum temperature - Will prevent heating above 300 by default
+temperature_control.hotend.min_temp         5                # Set minimum temperature - Will prevent heating below 0 by default
 
 # safety control is enabled by default and can be overidden here, the values show the defaults
 #temperature_control.hotend.runaway_heating_timeout      900   # max is 2040 seconds, how long it can take to heat up
-#temperature_control.hotend.runaway_cooling_timeout        0   # max is 2040 seconds, how long it can take to cool down if temp is set lower
+#temperature_control.hotend.runaway_cooling_timeout      900   # max is 2040 seconds, how long it can take to cool down if temp is set lower
 #temperature_control.hotend.runaway_range                20    # Max setting is 63°C
 
 #P39.98 I5.00 D79.91
-temperature_control.hotend.p_factor          46.7            #
-temperature_control.hotend.i_factor          3.404             #
-temperature_control.hotend.d_factor          160            #
+temperature_control.hotend.p_factor          46.3886            #
+temperature_control.hotend.i_factor          3.5547             #
+temperature_control.hotend.d_factor          151.3428            #
 
 # For bed
 temperature_control.bed.enable               true            #
@@ -132,6 +132,11 @@ temperature_control.bed.designator           B                #
 # uncomment followng to use bang bang isntead of PID for the bed (best for relay conrolled hotbeds)
 #temperature_control.bed.bang_bang            true             # set to true to use bang bang control rather than PID
 #temperature_control.bed.hysteresis           2.0              # set to the temperature in degrees C to use as hysteresis when using bang bang
+temperature_control.bed.pwm_frequency        20				  # PWM Frequency for relay
+
+temperature_control.bed.p_factor          191.1340           #
+temperature_control.bed.i_factor          13.8754             #
+temperature_control.bed.d_factor          658.2177            #
 
 # Switch module for fan control
 switch.fan.enable                            true             #
@@ -141,10 +146,10 @@ switch.fan.output_pin                        1.25             #
 
 # automatically toggle a switch at a specified temperature. Different ones of these may be defined to monitor different temperatures and switch different swithxes
 # useful to turn on a fan or water pump to cool the hotend
-temperatureswitch.hotendfan.enable                true             #
+temperatureswitch.hotendfan.enable              true             #
 temperatureswitch.hotendfan.designator          T                # first character of the temperature control designator to use as the temperature sensor to monitor
 temperatureswitch.hotendfan.switch              hotendfan             # select which switch to use, matches the name of the defined switch
-temperatureswitch.hotendfan.threshold_temp      60.0             # temperature to turn on (if rising) or off the switch
+temperatureswitch.hotendfan.threshold_temp      50.0             # temperature to turn on (if rising) or off the switch
 temperatureswitch.hotendfan.heatup_poll         5               # poll heatup at 15 sec intervals
 temperatureswitch.hotendfan.cooldown_poll       60               # poll cooldown at 60 sec intervals
 
@@ -153,10 +158,10 @@ switch.hotendfan.input_on_command                    M42              # gcode to
 switch.hotendfan.input_off_command                   M43              # gcode to turn off
 switch.hotendfan.output_pin                          0.26              # pin that controls the fan
 
-# switch.psu.enable                            true             # turn atx on/off
-# switch.psu.input_on_command                  M80              #
-# switch.psu.input_off_command                 M81              #
-# switch.psu.output_pin                        2.13o!           # open drain, inverted
+switch.psu.enable                            true             # turn atx on/off
+switch.psu.input_on_command                  M80              #
+switch.psu.input_off_command                 M81              #
+switch.psu.output_pin                        1.30o!           # open drain, inverted
 
 # Switch module for spindle control
 #switch.spindle.enable                        false            #
@@ -175,18 +180,18 @@ beta_max                                     0                #
 gamma_max_endstop                            1.28^            #
 gamma_homing_direction                       home_to_max      #
 gamma_min                                    0                #
-gamma_max                                    200              # change to suit your height
+gamma_max                                    120              # change to suit your height
 
-alpha_max_travel                             300              # max travel in mm for alpha/X axis when homing
-beta_max_travel                              300              # max travel in mm for beta/Y axis when homing
-gamma_max_travel                             200              # max travel in mm for gamma/Z axis when homing
+alpha_max_travel                             1000              # max travel in mm for alpha/X axis when homing
+beta_max_travel                              1000              # max travel in mm for beta/Y axis when homing
+gamma_max_travel                             1000              # max travel in mm for gamma/Z axis when homing
 
 #probe endstop
 #probe_pin                                   1.29             # optional pin for probe
 
-alpha_fast_homing_rate_mm_s                  200              # feedrates in mm/second
-beta_fast_homing_rate_mm_s                   200              # "
-gamma_fast_homing_rate_mm_s                  200              # "
+alpha_fast_homing_rate_mm_s                  80             # feedrates in mm/second
+beta_fast_homing_rate_mm_s                   80              # "
+gamma_fast_homing_rate_mm_s                  80              # "
 alpha_slow_homing_rate_mm_s                  20               # "
 beta_slow_homing_rate_mm_s                   20               # "
 gamma_slow_homing_rate_mm_s                  20               # "
@@ -210,13 +215,20 @@ gamma_trim                                   0                 # software trim f
 zprobe.enable                                true           # set to true to enable a zprobe
 zprobe.probe_pin                             1.29!^          # pin probe is attached to if NC remove the !
 zprobe.slow_feedrate                         5               # mm/sec probe feed rate
-#zprobe.debounce_count                       100             # set if noisy
+zprobe.debounce_count                       100             # set if noisy
 zprobe.fast_feedrate                         100             # move feedrate
 zprobe.probe_height                          5               # how much above bed to start probe
 
 # associated with zprobe the leveling strategy to use
 leveling-strategy.delta-calibration.enable   true            # basic delta calibration
-leveling-strategy.delta-calibration.radius   150             # the probe radius
+leveling-strategy.delta-calibration.radius   100             # the probe radius
+
+leveling-strategy.delta-grid.enable               true     #
+leveling-strategy.delta-grid.radius               150       #
+leveling-strategy.delta-grid.size                 7 	   #
+leveling-strategy.delta-grid.probe_offsets        0,45,0  #
+leveling-strategy.delta-grid.save                 true    #
+leveling-strategy.delta-grid.initial_height       10       #
 
 # kill button (used to be called pause) maybe assigned to a different pin, set to the onboard pin by default
 kill_button_enable                           true             # set to true to enable a kill button
@@ -254,30 +266,63 @@ panel.encoder_a_pin                          3.25!^            # encoder pin
 panel.encoder_b_pin                          3.26^            # encoder pin
 panel.click_button_pin                       2.11!^            # click button
 panel.a0_pin                                 2.6               # st7565 needs an a0
-panel.contrast                               0              # override contrast setting (default is 18)
+panel.contrast                               0                # override contrast setting (default is 18)
 panel.encoder_resolution                     1                 # override number of clicks to move 1 item (default is 2)
 panel.menu_offset                            1                 # here controls how sensitive the menu is. some panels will need 1
 
 panel.alpha_jog_feedrate                     6000              # x jogging feedrate in mm/min
 panel.beta_jog_feedrate                      6000              # y jogging feedrate in mm/min
-panel.gamma_jog_feedrate                     200               # z jogging feedrate in mm/min
+panel.gamma_jog_feedrate                     1200               # z jogging feedrate in mm/min
 
 panel.hotend_temperature                     225               # temp to set hotend when preheat is selected
 panel.bed_temperature                        70                # temp to set bed when preheat is selected
 
-# Azteeg specific settings do not change
-currentcontrol_module_enable                 false            #
-digipot_max_current                          2.0             # max current
-digipot_factor 113.5 # factor for converting current to digipot value
+custom_menu.calibrate.enable		true				#
+custom_menu.calibrate.name			Calibrate			#
+custom_menu.calibrate.command		G32|M500			#
+
+custom_menu.mesh.enable				true				#
+custom_menu.mesh.name				Calibrate_Bed_Mesh	#
+custom_menu.mesh.command			G31|M500			#
+
+custom_menu.store.enable			true				#
+custom_menu.store.name				Store_Override		#
+custom_menu.store.command			M500				#
+
+custom_menu.load.enable				true				#
+custom_menu.load.name				Load_Override		#
+custom_menu.load.command			M501				#
+
+custom_menu.delete.enable			true				#
+custom_menu.delete.name				Delete_Override		#
+custom_menu.delete.command			M502				#
+
+custom_menu.autotunet0.enable		true				#
+custom_menu.autotunet0.name			PID_Autotune_T0		#
+custom_menu.autotunet0.command		M303_E0_S240|M500	#
+
+custom_menu.autotunebed.enable		true				#
+custom_menu.autotunebed.name		PID_Autotune_Bed	#
+custom_menu.autotunebed.command		M303_E1_S70|M500		#
+
+custom_menu.autotuneabort.enable	true				#
+custom_menu.autotuneabort.name		Abort_Autotune		#
+custom_menu.autotuneabort.command	M304				#
+
+custom_menu.halt.enable				true				#
+custom_menu.halt.name				HALT				#
+custom_menu.halt.command			M112				#
 
 # network settings
 network.enable                               true             # enable the ethernet network services
 network.webserver.enable                     true             # enable the webserver
-#network.telnet.enable                        true             # enable the telnet server
-#network.plan9.enable                         true             # enable the plan9 network filesystem
-network.ip_address                           auto    # the IP address
-##etwork.ip_mask                              255.255.255.0    # the ip mask
-#network.ip_gateway                           192.168.0.1      # the gateway address
-network.hostname							 AX-01			#
+network.ip_address                           172.16.0.5    # the IP address
+network.ip_mask                              255.255.255.0    # the ip mask
+network.hostname							 ax02			#
+
+# Azteeg specific settings do not change
+currentcontrol_module_enable                 true            #
+digipot_max_current                          2.0             # max current
+digipot_factor                               113.5           # factor for converting current to digipot value
 
 
