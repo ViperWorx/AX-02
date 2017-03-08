@@ -8,9 +8,9 @@ Usable print area is 300mm diameter with a Z Height of around 200mm. The printer
  <img src="https://raw.githubusercontent.com/AxMod3DPrint/AX-02/master/Images/AX-02.png" />
 
 <hr />
-<table>
-<th>
-**&copy; AxMod 3D Print 2017.**
+<table border="0px">
+<th align="left">
+&copy; AxMod 3D Print 2017.
 </th>
 <tr>
 <td>
