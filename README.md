@@ -8,13 +8,21 @@ Usable print area is 300mm diameter with a Z Height of around 200mm. The printer
  <img src="https://raw.githubusercontent.com/AxMod3DPrint/AX-02/master/Images/AX-02.png" />
 
 <hr />
-&copy; AxMod 3D Print 2017.
-<hr />
+<table>
+<th>
+**&copy; AxMod 3D Print 2017.**
+</th>
+<tr>
+<td>
 This documentation describes Open Hardware and is licensed under the CERN OHL v. 1.2.
-<hr />
+</td>
+<td>
 You may redistribute and modify this documentation under the terms of the
 CERN OHL v.1.2. (http://ohwr.org/cernohl). This documentation is distributed
 WITHOUT ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING OF
 MERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A
 PARTICULAR PURPOSE. Please see the CERN OHL v.1.2 for applicable
 conditions
+</td>
+</tr>
+</table
