@@ -16,6 +16,8 @@ Usable print area is 300mm diameter with a Z Height of around 200mm. The printer
 <td>
 This documentation describes Open Hardware and is licensed under the CERN OHL v. 1.2.
 </td>
+</tr>
+<tr>
 <td>
 You may redistribute and modify this documentation under the terms of the
 CERN OHL v.1.2. (http://ohwr.org/cernohl). This documentation is distributed
@@ -25,4 +27,4 @@ PARTICULAR PURPOSE. Please see the CERN OHL v.1.2 for applicable
 conditions
 </td>
 </tr>
-</table
+</table>
